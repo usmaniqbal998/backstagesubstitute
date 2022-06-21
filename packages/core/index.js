@@ -1,3 +1,1 @@
-export const logger = ()=>{
-    console.log("Exported logger file")
-}
+export { loadPlugin } from './loadplugin';

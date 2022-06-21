@@ -4,13 +4,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
+const deps = require('./package.json').dependencies;
+
 module.exports = (env) => {
 	return {
 		mode: env.production ? 'production' : 'development',
 		entry: path.join(__dirname, 'src', 'index.js'),
 		output: {
-			path: path.resolve(__dirname, '../../dist'),
-			filename: '[name].[contenthash].js',
+			publicPath: 'auto',
 		},
 		devtool: 'inline-source-map',
 		cache: false,
@@ -51,7 +52,11 @@ module.exports = (env) => {
 		},
 		plugins: [
 			new ModuleFederationPlugin({
-				name: 'container',
+				name: 'cards_plugin',
+				filename: 'remoteEntry.js',
+				exposes: {
+					'./App': './src/App',
+				},
 			}),
 			new CleanWebpackPlugin(),
 			new HtmlWebpackPlugin({
@@ -61,7 +66,7 @@ module.exports = (env) => {
 		].filter(Boolean),
 		devServer: {
 			open: true,
-			port: 3000,
+			port: 8000,
 			compress: true,
 			hot: true,
 			headers: {
