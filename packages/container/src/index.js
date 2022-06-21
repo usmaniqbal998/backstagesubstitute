@@ -1,3 +1,5 @@
-import {logger} from "helpers";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app';
 
-logger();
+ReactDOM.render(<App />, document.getElementById('root'));
