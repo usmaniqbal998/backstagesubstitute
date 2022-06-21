@@ -1,25 +1,38 @@
 import React, { useEffect } from 'react';
-import usePlugin from './hooks/usePlugin';
+import { Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import ButtonAppBar from './components/appbar';
+import PluginRenderer from './components/pluginrenderer';
 
 const App = () => {
-	const [{ module, scope, url }, setSystem] = React.useState({});
-	const { Component, errorLoading } = usePlugin(url, scope, module);
-
-	useEffect(() => {
-		setSystem({
-			url: 'http://localhost:8000/remoteEntry.js',
-			scope: 'cards_plugin',
-			module: './App',
-		});
-	}, []);
-
 	return (
 		<div>
-			<React.Suspense fallback='Loading System'>
-				{errorLoading
-					? `Error loading module "${module}"`
-					: Component && <Component />}
-			</React.Suspense>
+			<ButtonAppBar />
+			<Routes>
+				<Route
+					path='/Plugin_A'
+					element={
+						<PluginRenderer
+							url='http://localhost:8000/remoteEntry.js'
+							scope='cards_plugin'
+							module='./App'
+							key='cards_plugin'
+						/>
+					}
+				/>
+
+				<Route
+					path='/Plugin_B'
+					element={
+						<PluginRenderer
+							url='http://localhost:8001/remoteEntry.js'
+							scope='template_plugin'
+							module='./App'
+							key='template_plugin'
+						/>
+					}
+				/>
+			</Routes>
 		</div>
 	);
 };

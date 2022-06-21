@@ -6,6 +6,7 @@ const componentCache = new Map();
 
 export const usePlugin = (remoteUrl, scope, module) => {
 	const key = `${remoteUrl}-${scope}-${module}`;
+	console.log(key);
 	const [Component, setComponent] = React.useState(null);
 
 	const { ready, errorLoading } = useScript(remoteUrl);

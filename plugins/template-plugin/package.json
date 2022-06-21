@@ -1,5 +1,5 @@
 {
-	"name": "@pandora/cards_plugin",
+	"name": "@pandora/template_plugin",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
