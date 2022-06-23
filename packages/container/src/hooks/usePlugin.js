@@ -12,7 +12,6 @@ export const usePlugin = (remoteUrl, scope, module) => {
 	const { ready, errorLoading } = useScript(remoteUrl);
 	React.useEffect(() => {
 		if (Component) setComponent(null);
-		// Only recalculate when key changes
 	}, [key]);
 
 	React.useEffect(() => {
@@ -21,7 +20,6 @@ export const usePlugin = (remoteUrl, scope, module) => {
 			componentCache.set(key, Comp);
 			setComponent(Comp);
 		}
-		// key includes all dependencies (scope/module)
 	}, [Component, ready, key]);
 
 	return { errorLoading, Component };

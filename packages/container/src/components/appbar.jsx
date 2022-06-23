@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,6 +9,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar() {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => {
+		window.addEventListener('eventFromMfe', (customEvent) => {
+			console.log(customEvent);
+			setCount((prev) => prev + 1);
+		});
+	}, []);
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position='static'>
@@ -65,7 +74,7 @@ export default function ButtonAppBar() {
 						</Typography>
 					</Link>
 
-					<Button color='inherit'>Event Fired Count = 0</Button>
+					<Button color='inherit'>Event Fired Count {count}</Button>
 				</Toolbar>
 			</AppBar>
 		</Box>
